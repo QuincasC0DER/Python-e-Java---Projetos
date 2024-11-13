@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Style Shore</title>
+    <link rel="stylesheet" href="css/layouthome.css" type="text/css">
+    <link rel="icon" href="icone.ico" class="icone">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a class="active" href="home.html">Página Inicial</a>        
+        <a href="contato.html">Contato</a>
+        <a href="sobre.html">Sobre</a>
+        <a href="cadastro.html">Cadastro</a>
+        <a href="login.html">Entrar</a>
+    </div>    
+    
+    <!-- Barra de busca -->
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Buscar...">
+        <button onclick="searchFunction()">Buscar</button>
+    </div>
+    <div id="searchResults"></div> <!-- Resultados da busca -->
+
+    <!-- Logo -->
+    <img src="logo.png" class="capa" alt="Logo" style="width: 200px;">
+    <img src="couro.png" width="100%" height="300" style="object-fit: cover; border: inset 5px; border-radius: 0%;">
+    <!-- Espaçamento -->
+    <div style="padding: 16px;"></div>
+    <hr>
+
+    <!-- Texto sobre a loja -->
+    <div class="escrita">
+        <h1>Style Shore</h1>
+        <h2></h2>
+        <h3>Bem vindo a Loja Style Shore , nossa loja é uma loja de moda masculina destinada a desenvolver a autoestima e confiança do homem moderno em todos os seus contextos no trabalho em sua vida social , afetiva e mental
+            ofercemos diversos tipos de vestimentas dentro de um estilo Moda Praia para os seus momentos de lazer e descontração ao longo do fim de ano e ao longo do ano com a Moda Urbana </h3>
+
+            <strong><h1 style="color:red"> Não perca nossas Ofertas de Black Friday estamos com 70% de desconto em todos os departamentos</h1></strong>
+        
+        <p class="descricao"></p>
+        <hr>
+        <h2> Primeira Vez no nosso site ? Não deixe de se cadastrar para não perder nenhuma Novidade !!!</h2>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+        <div class="slide fade">
+            <img src="banner.jpeg" alt="Moda Masculina" width="1200" height="400">
+            <img src="https://img.freepik.com/psd-gratuitas/design-de-modelo-de-moda-masculina-de-luxo_23-2150855892.jpg?semt=ais_hybrid" width="1200" height="400">
+        </div>
+    </div>
+
+    <h1>Produtos em Destaque</h1>
+
+    <!-- Produtos em Destaque -->
+    <section class="produtos-destaque">
+        <div class="produto" data-name="Jaqueta de Couro" data-price="49.90">
+            <img src="jaquetacouro.jpg" alt="Jaqueta de Couro">
+            <h3>Jaqueta de Couro 1</h3>
+            <p>Descrição do produto 1.</p>
+            <span class="preco">R$ 49,90</span>
+            <button class="btn-comprar">Adicionar ao Carrinho</button>
+        </div>
+        <div class="produto" data-name="Calça Jeans" data-price="149.99">
+            <img src="https://shoppingcity.com.br/media/catalog/product/cache/51a80c9da94f85ac42b65ba251e9fd91/c/a/cal_a_jeans_masculina_cinza_escuro_design_cl_ssico_slim_fit_5__1.jpg" alt="Calça Jeans">
+            <h3>Calça Jeans 2</h3>
+            <p>Calça Skinny jeans escuro escovado tamanho M - Masculino, tamanho 38.</p>
+            <span class="preco">R$ 149,99</span>
+            <button class="btn-comprar">Adicionar ao Carrinho</button>
+        </div>
+        <div class="produto" data-name="Camisa" data-price="29,90">
+            <img src="camisaxadrez.jpg" alt="Camisa Xadrez">
+            <h3>Camisa</h3>
+            <p>Camisa tamanho M - Masculina, ajustável ao corpo, 100% algodão.</p>
+            <span class="preco">R$ 29,90</span>
+            <button class="btn-comprar">Adicionar ao Carrinho</button>
+        </div>
+    </section>
+
+    <!-- Carrinho de Compras -->   /* Simulação Carrinho de Compras.
+<section class="carrinho">
+    <h2>Carrinho de Compras</h2>    
+    <ul id="carrinho-lista"></ul>
+    <div class="total">
+        <span>Total: R$ <span id="total-valor">0,00</span></span>
+    </div>
+    <button id="finalizar-compra">Finalizar Compra</button>
+</section>
+
+
+    <div class="row">
+        <div class="column" style="background-color: #000000; color:white">
+            <h2>Categorias</h2>
+            <div class="sidebar">
+                
+                <ul>  Simulação Outras Paginas HTML levando a categoria especificada 
+                    <li><a href="calças.html">Calças </a><hr></li>
+                    <li><a href="camisas.html">Camisas</a><hr></li>
+                    <li><a href="camisas.html">Camisetas</a><hr></li>
+                    <li><a href="calçados.html">Calçados</a><hr></li>
+                    <li><a href="modapraia.html">Moda Praia</a><hr></li>
+                    <li><a href="modaurbana.html">Moda Urbana</a><hr></li>
+                </ul>
+            </div>
+            
+            <div class="content">
+                <h1>Nossas Redes Sociais</h1>
+                
+                <div class="social-links">   /* Simulaçao Redes Socias 
+                    <h2>Instagram 
+                        <a href="https://www.instagram.com" target="_blank" class="social-icon instagram">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
+                    </h2>
+                    
+                    <h2>Facebook 
+                        <a href="https://www.facebook.com" target="_blank" class="social-icon facebook">
+                            <i class="fab fa-facebook"></i> Facebook
+                        </a>
+                    </h2>
+                    
+                    <h2>Youtube 
+                        <a href="https://www.youtube.com" target="_blank" class="social-icon youtube">
+                            <i class="fab fa-youtube"></i> YouTube
+                        </a>
+                    </h2>
+                </div>
+            </div>
+            
+    </div>
+
+    <!-- Script JavaScript -->
+    <script src="javascript/script.js"></script>
+</body>
+</html>

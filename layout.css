@@ -1,0 +1,110 @@
+.sidebar {
+    background-color: #f8f6f6;
+    overflow: scroll;
+}
+.sidebar a {
+    float: left;
+    display: block;
+    color: rgb(5, 5, 5);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+.sidebar a:hover {
+    background-color: #f8f6f6;
+    color: rgb(22, 176, 236);
+}
+.sidebar a.active {
+    background-color: #ffffff;
+    color: rgb(22, 176, 236);
+}
+
+body {
+    background-color: rgb(47, 0, 134);
+    font-style: oblique                
+}
+
+div {
+    color: rgb(58, 55, 55);
+
+}
+
+body {
+    font-family:'Times New Roman', Times, serif
+    margin'Times New Roman', Times }
+
+
+    body {
+        font-family: 'Times New Roman', Times, serif;       
+        margin: 0;
+        padding: 20px;
+        background: linear-gradient(to right, #ffffff, #000000);
+    }
+    
+    
+    label {
+        color: white;
+    }
+    
+    .container {
+        max-width: auto;
+        height: auto;
+        margin: 400px;
+        padding: 200px;
+        border-radius: auto;
+        box-shadow:auto;
+        background: linear-gradient(to right, #000000, #fcfcfc);
+        
+        
+        
+    }
+
+    img    {
+        margin-left: 150px;
+
+    }
+    
+    h1 {
+        text-align: center;
+        font-style: oblique;
+        
+    }
+    
+    label {
+        margin-top: 10px;
+        display: block;
+    }
+    
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #612c2c;
+        border-radius: 4px;
+    }
+    
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #050505;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    
+    button:hover {
+        background-color: #4e1111fa;
+    }
+    
+    .hidden {
+        display: none;
+    }
+    
+    #message {
+        text-align: center;
+        margin-top: 20px;
+        color: #050505;
+    }
+       
+    

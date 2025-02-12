@@ -1,96 +1,133 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import ttk, messagebox
 
-dicionario = {}
-def listar_modelos():
+dicionario = {} # Dicionario para armazenar os Dados das Artes 
+
+def listar_modelos(): # Função para Listar as Artes de Modelos 
     if not dicionario:
         messagebox.showinfo("Lista de Modelos", "Nenhum modelo adicionado.")
     else:
-        modelos_texto = "\n".join([f"Nome: {modelo}, Quantidade: {dicionario[modelo]}" for modelo in dicionario])
+        modelos_texto = "\n".join([f"Nome: {modelo}, Quantidade: {dicionario[modelo][0]}, Preço: {dicionario[modelo][1]}" for modelo in dicionario])
         messagebox.showinfo("Lista de Modelos", modelos_texto)
+        with open("Artes Registradas Listagem.txt", 'a') as arquivo:
+            for modelo, (quantidade, preco) in dicionario.items():
+                arquivo.write(f"Nome: {modelo}, Quantidade: {quantidade}, Preço: {preco}\n")
+        print("Modelos Listados")
+
 def adicionar_modelos():
     modelo = entry_modelo.get()
-    quantidade = entry_quantidade.get()  
-    if modelo and quantidade:
+    quantidade = entry_quantidade.get()
+    preco = entry_preco.get()  
+    if modelo and quantidade and preco:
         try:
             quantidade = int(quantidade)
-            dicionario[modelo] = quantidade
-            messagebox.showinfo("Sucesso", f"Modelo '{modelo}' adicionado com sucesso! Quantidade: {quantidade}")
+            preco = float(preco)
+            dicionario[modelo] = (quantidade, preco)
+            messagebox.showinfo("Sucesso", f"Modelo '{modelo}' adicionado com sucesso! Quantidade: {quantidade}, Preço: {preco}")
+            # Adicionando ao arquivo
+            with open("Artes Registradas Adição.txt", 'a') as arquivo:
+                arquivo.write(f"Nome: {modelo}, Quantidade: {quantidade}, Preço: {preco}\n")
+            print(f"Modelo Adicionado: {modelo}, Quantidade: {quantidade}, Preço: {preco}")
         except ValueError:
-            messagebox.showerror("Erro", "Por favor, insira uma quantidade válida (número).")
+            messagebox.showerror("Erro", "Por favor, insira valores válidos.")
     else:
         messagebox.showerror("Erro", "Por favor, preencha todos os campos.")
+
 def editar_modelos():
     modelo = entry_modelo.get()
+    quantidade = entry_quantidade.get()
+    preco = entry_preco.get() 
     if modelo in dicionario:
-        nova_quantidade = entry_quantidade.get()
         try:
-            nova_quantidade = int(nova_quantidade)
-            dicionario[modelo] = nova_quantidade
-            messagebox.showinfo("Sucesso", f"Modelo '{modelo}' editado com sucesso! Nova Quantidade: {nova_quantidade}")
+            nova_quantidade = int(quantidade)
+            novo_preco = float(preco)
+            dicionario[modelo] = (nova_quantidade, novo_preco)
+            messagebox.showinfo("Sucesso", f"Modelo '{modelo}' editado com sucesso! Nova Quantidade: {nova_quantidade}, Novo Preço: {novo_preco}")
+            # Editando no arquivo de logs
+            with open("Artes Registradas Editadas.txt", 'a') as arquivo:
+                arquivo.write(f"Nome: {modelo}, Quantidade: {nova_quantidade}, Preço: {novo_preco}\n")
+            print(f"Modelo Editado: {modelo}, Quantidade: {nova_quantidade}, Preço: {novo_preco}")
         except ValueError:
-            messagebox.showerror("Erro", "Por favor, insira uma quantidade válida (número).")
+            messagebox.showerror("Erro", "Por favor, insira valores válidos.")
     else:
         messagebox.showerror("Erro", f"O modelo '{modelo}' não existe.")
+
 def excluir_modelos():
     modelo = entry_modelo.get()
     if modelo in dicionario:
         del dicionario[modelo]
         messagebox.showinfo("Sucesso", f"Modelo '{modelo}' excluído com sucesso!")
+        # Excluindo no arquivo de logs
+        with open("Artes Registradas Exclusão.txt", 'a') as arquivo:
+            arquivo.write(f"Modelo excluído: {modelo}\n")
+        print(f"Modelo Excluído: {modelo}")
     else:
         messagebox.showerror("Erro", f"O modelo '{modelo}' não existe.")
-def exibir_menu():
-    menu_frame.pack_forget()
-    frame_opcoes.pack()  
-def voltar_menu_principal():
-    frame_opcoes.pack_forget()  
-    menu_frame.pack()  
 
-janela = tk.Tk()
-janela.title("Gerenciamento de Modelos")
-janela.geometry("600x400")
+def vender_modelo():
+    modelo = entry_modelo.get()
+    quantidade = entry_quantidade.get()
+    preco = entry_preco.get() 
+    if modelo in dicionario:
+        try:
+            quantidade = int(quantidade)
+            preco = float(preco)
+            estoque, preco_registrado = dicionario[modelo]
+            if estoque >= quantidade:
+                dicionario[modelo] = (estoque - quantidade, preco_registrado)
+                # Registrando a venda no arquivo
+                with open("Artes Registradas Vendas.txt", 'a') as arquivo:
+                    arquivo.write(f"Modelo: {modelo}, Quantidade Vendida: {quantidade}, Preço: {preco}\n")
+                messagebox.showinfo("Venda realizada com Sucesso", f"Modelo '{modelo}' foi vendido.")
+                print(f"Venda Realizada: Modelo: {modelo}, Quantidade: {quantidade}, Preço: {preco}")
+            else:
+                messagebox.showerror("Erro", f"Estoque insuficiente para o modelo '{modelo}'.")
+        except ValueError:
+            messagebox.showerror("Erro", "Por favor, insira valores válidos.")
+    else:
+        messagebox.showerror("Erro", f"O modelo '{modelo}' não existe.")
 
-menu_frame = tk.Frame(janela)
+def criar_interface():
+    global entry_modelo, entry_quantidade, entry_preco
 
-label = tk.Label(menu_frame, text="Sistema de Gerenciamento de Modelos de Artes", font=("Arial", 16))
-label.pack(pady=20)
+    root = tk.Tk()
+    root.title("Sistema de Gerenciamento de Modelos")
+    root.geometry("400x300")
+    root.config(bg="#363636")  # Cor do Fundo do Aplicativo. 
 
-btn_adicionar = tk.Button(menu_frame, text="Adicionar Modelo", command=exibir_menu)
-btn_adicionar.pack(pady=10)
+    # Estilos modernizados
+    style = ttk.Style()
+    style.configure("TButton",
+                    background="#34495E",
+                    foreground="#2F4F4F",
+                    font=("Times New Roman", 12, "bold"),
+                    padding=10)
+    style.configure("TLabel",
+                    background="#2C3E50",
+                    foreground="#ECF0F1",
+                    font=("Helvetica", 12))
 
-btn_listar = tk.Button(menu_frame, text="Listar Modelos", command=listar_modelos)
-btn_listar.pack(pady=10)
+    # Labels e entradas
+    ttk.Label(root, text="Nome do Modelo:" ).grid(row=0, column=0, padx=10, pady=5, sticky="w")
+    entry_modelo = ttk.Entry(root, width=25)
+    entry_modelo.grid(row=0, column=1, padx=10, pady=5)
 
-btn_sair = tk.Button(menu_frame, text="Sair", command=janela.quit)
-btn_sair.pack(pady=10)
+    ttk.Label(root, text="Quantidade:").grid(row=1, column=0, padx=10, pady=5, sticky="w")
+    entry_quantidade = ttk.Entry(root, width=25)
+    entry_quantidade.grid(row=1, column=1, padx=10, pady=5)
 
-menu_frame.pack()
+    ttk.Label(root, text="Preço:").grid(row=2, column=0, padx=10, pady=5, sticky="w")
+    entry_preco = ttk.Entry(root, width=25)
+    entry_preco.grid(row=2, column=1, padx=10, pady=5)
 
-frame_opcoes = tk.Frame(janela)
+    # Botões
+    ttk.Button(root, text="Adicionar Modelo", command=adicionar_modelos).grid(row=3, column=0, padx=10, pady=10, sticky="ew")
+    ttk.Button(root, text="Editar Modelo", command=editar_modelos).grid(row=3, column=1, padx=10, pady=10, sticky="ew")
+    ttk.Button(root, text="Excluir Modelo", command=excluir_modelos).grid(row=4, column=0, padx=10, pady=10, sticky="ew")
+    ttk.Button(root, text="Vender Modelo", command=vender_modelo).grid(row=4, column=1, padx=10, pady=10, sticky="ew")
+    ttk.Button(root, text="Listar Modelos", command=listar_modelos).grid(row=5, column=0, columnspan=2, padx=10, pady=10, sticky="ew")
 
-label_modelo = tk.Label(frame_opcoes, text="Modelo:")
-label_modelo.grid(row=0, column=0, padx=10, pady=10)
+    root.mainloop()
 
-entry_modelo = tk.Entry(frame_opcoes)
-entry_modelo.grid(row=0, column=1, padx=10, pady=10)
-
-label_quantidade = tk.Label(frame_opcoes, text="Quantidade:")
-label_quantidade.grid(row=1, column=0, padx=10, pady=10)
-
-entry_quantidade = tk.Entry(frame_opcoes)
-entry_quantidade.grid(row=1, column=1, padx=10, pady=10)
-
-btn_adicionar_modelo = tk.Button(frame_opcoes, text="Adicionar Modelo", command=adicionar_modelos)
-btn_adicionar_modelo.grid(row=2, column=0, padx=10, pady=10)
-
-btn_editar_modelo = tk.Button(frame_opcoes, text="Editar Modelo", command=editar_modelos)
-btn_editar_modelo.grid(row=2, column=1, padx=10, pady=10)
-
-btn_excluir_modelo = tk.Button(frame_opcoes, text="Excluir Modelo", command=excluir_modelos)
-btn_excluir_modelo.grid(row=3, column=0, padx=10, pady=10)
-
-btn_voltar = tk.Button(frame_opcoes, text="Voltar ao Menu Principal", command=voltar_menu_principal)
-btn_voltar.grid(row=3, column=1, padx=10, pady=10)
-
-
-janela.mainloop()
+if __name__ == "__main__":
+    criar_interface()
